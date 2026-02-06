@@ -9,17 +9,91 @@ A comprehensive guide for installing OpenWrt on the **WiFi Repeater U14** (gener
 | **Product Name** | WiFi Repeater U14 |
 | **PCB Model** | U10_9533_20230904-1 |
 | **Manufacturer** | Generic Chinese (OEM) |
-| **SoC** | Qualcomm Atheros **QCA9533-BL3A** (MIPS 24Kc @ 650MHz) |
-| **RAM** | 64 MB DDR2 (Winbond) |
-| **Flash** | 8 MB SPI NOR |
-| **WiFi** | 2.4 GHz 802.11 b/g/n (integrated in SoC) |
-| **Antennas** | 4x External (2x 2.4GHz chains) |
+| **Antennas** | 4x External (2x 2.4GHz MIMO chains) |
 | **Ethernet** | 1x WAN + 1x LAN (10/100 Mbps) |
 | **USB** | None |
 | **Power** | 110V-240V~ 50/60Hz 0.1A max (wall plug) |
-| **Serial** | 115200 baud, 8N1 (3.3V TTL) |
+| **Serial Console** | 115200 baud, 8N1 (3.3V TTL) |
 | **Original Bootloader** | Breed (Chinese bootloader) |
 | **Flash Layout** | LSDK/QSDK |
+
+---
+
+## Detailed Chip Information
+
+### SoC: Qualcomm Atheros QCA9533-BL3A
+
+| Parameter | Value |
+|-----------|-------|
+| **Full Part Number** | QCA9533-BL3A (E221.K0) |
+| **Architecture** | MIPS 24Kc |
+| **Clock Speed** | 550-650 MHz |
+| **WiFi Standard** | IEEE 802.11 b/g/n |
+| **WiFi Configuration** | 2x2:2 MIMO |
+| **Max WiFi Speed** | 300 Mbps |
+| **Ethernet Switch** | Integrated 5-port 10/100 Mbps |
+| **Memory Interface** | DDR1/DDR2 @ 200/300 MHz |
+| **Package** | DRQFN 12×12 mm |
+| **Manufacturer** | Qualcomm Atheros (Taiwan) |
+
+### RAM: Winbond W9751G6KB-25
+
+| Parameter | Value |
+|-----------|-------|
+| **Full Part Number** | W9751G6KB-25 |
+| **Type** | DDR2 SDRAM |
+| **Capacity** | 512 Mbit (64 MB) |
+| **Organization** | 32M × 16 bit |
+| **Speed Grade** | DDR2-800 |
+| **Data Bus Width** | 16-bit |
+| **Voltage** | 1.7V - 1.9V |
+| **Package** | WBGA-84 (84-pin Ball Grid Array) |
+| **Manufacturer** | Winbond Electronics |
+
+### Flash: SPI NOR Flash
+
+| Parameter | Value |
+|-----------|-------|
+| **Type** | SPI NOR Flash |
+| **Capacity** | 64 Mbit (8 MB) |
+| **Interface** | SPI (Serial Peripheral Interface) |
+| **Package** | SOP-8 (8-pin) |
+| **Voltage** | 3.3V |
+
+### Crystal Oscillator
+
+| Parameter | Value |
+|-----------|-------|
+| **Frequency** | 25.000 MHz |
+| **Manufacturer** | JSQC |
+| **Function** | Main system clock reference |
+
+---
+
+## Memory Map
+
+```
+Flash Memory Layout (8 MB = 0x800000 bytes):
+
++------------------+ 0x000000
+|    Bootloader    |  128 KB (0x20000)
+|    (U-Boot)      |
++------------------+ 0x020000
+|   U-Boot Env     |  64 KB (0x10000)
++------------------+ 0x030000
+|                  |
+|    Firmware      |  ~7.75 MB
+|   (Kernel +      |
+|    RootFS)       |
+|                  |
++------------------+ 0x7F0000
+|    ART Data      |  64 KB (0x10000)
+| (WiFi Calibration|
+|      Data)       |
++------------------+ 0x800000
+```
+
+**IMPORTANT**: The ART (Atheros Radio Test) partition contains unique WiFi calibration data. Always backup before flashing!
 
 ## Factory Default Settings
 
@@ -29,6 +103,72 @@ A comprehensive guide for installing OpenWrt on the **WiFi Repeater U14** (gener
 | Username | admin |
 | Password | admin |
 | SSID | Extender_XXXXXX |
+
+---
+
+## Serial Console (UART)
+
+For debugging and recovery, you can access the serial console.
+
+| Parameter | Value |
+|-----------|-------|
+| **Baud Rate** | 115200 |
+| **Data Bits** | 8 |
+| **Parity** | None |
+| **Stop Bits** | 1 |
+| **Flow Control** | None |
+| **Voltage Level** | 3.3V TTL (DO NOT use 5V!) |
+
+### Serial Pinout
+
+```
+    [GND] [RX] [TX] [VCC]
+      ●     ●    ●    ○     (VCC not needed, leave unconnected)
+```
+
+**Connection to USB-TTL adapter:**
+- Router TX → Adapter RX
+- Router RX → Adapter TX  
+- Router GND → Adapter GND
+
+### Recommended USB-TTL Adapters
+- CP2102
+- CH340G
+- FT232RL
+- PL2303
+
+---
+
+## SPI Flash Programmer Recovery
+
+If the router is bricked (no boot, no serial output), you can recover using an SPI programmer.
+
+### Required Equipment
+- CH341A USB Programmer (or similar)
+- SOIC-8 test clip or direct soldering
+- Software: AsProgrammer, flashrom, or CH341A Programmer
+
+### SPI Flash Pinout (SOP-8)
+
+```
+        ┌──────────┐
+   CS# ─┤1       8├─ VCC (3.3V)
+    DO ─┤2       7├─ HOLD#
+   WP# ─┤3       6├─ CLK
+   GND ─┤4       5├─ DI
+        └──────────┘
+```
+
+### Recovery Procedure
+
+1. **Backup first** (if possible): Read entire 8MB flash
+2. **Erase**: Full chip erase
+3. **Write**: Flash the backup or new firmware
+4. **Verify**: Compare written data with source file
+
+### Important Files to Backup
+- Full flash dump (8 MB)
+- ART partition (last 64 KB) - **Contains unique WiFi calibration!**
 
 ## GPIO Configuration
 
