@@ -621,8 +621,6 @@ wget https://downloads.openwrt.org/releases/23.05.5/targets/ath79/generic/openwr
 ```bash
 opkg update
 opkg install luci                    # Web interface
-opkg install wireguard-tools         # VPN
-opkg install kmod-nft-qos            # QoS/bandwidth limiting
 opkg install wpad-basic-mbedtls      # WiFi WPA support
 ```
 
@@ -661,7 +659,6 @@ This project documents the complete process of:
 - Analyzing generic Chinese router hardware
 - Compiling custom U-Boot bootloader with correct GPIO configuration  
 - Installing modern OpenWrt on legacy Breed bootloader devices
-- Configuring WireGuard VPN and bandwidth limiting
 
 ---
 
