@@ -1,9 +1,12 @@
-# Firmware binaries (too large for git)
-*.bin
+# Large firmware images (OpenWrt, backups)
+# *.bin  # Commented out to allow U-Boot and ART files
 
 # Keep images in the images folder
 !images/*.jpg
 !images/*.png
+
+# Keep binary files in binaries folder
+!binaries/*.bin
 
 # Private keys (never commit!)
 *.key

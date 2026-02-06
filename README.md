@@ -637,6 +637,34 @@ opkg install wpad-basic-mbedtls      # WiFi WPA support
 
 ---
 
+## Downloads
+
+### Pre-compiled Binaries
+
+| File | Description | Size |
+|------|-------------|------|
+| [uboot_Compiled_working.bin](binaries/uboot_Compiled_working.bin) | Custom U-Boot for WiFi Repeater U14 (GPIO 17 reset) | 123 KB |
+| [wifi_calibration_art.bin](binaries/wifi_calibration_art.bin) | ART partition backup (WiFi calibration data) | 64 KB |
+
+**Note**: The ART file is specific to one device. Your device has unique calibration data - always backup your own ART partition before flashing!
+
+---
+
+## Author
+
+**Created by Lordlock**
+
+- Telegram: [t.me/lordlock](https://t.me/lordlock)
+- GitHub: [@fidelhacker13](https://github.com/fidelhacker13)
+
+This project documents the complete process of:
+- Analyzing generic Chinese router hardware
+- Compiling custom U-Boot bootloader with correct GPIO configuration  
+- Installing modern OpenWrt on legacy Breed bootloader devices
+- Configuring WireGuard VPN and bandwidth limiting
+
+---
+
 ## License
 
 This guide is provided as-is without warranty. Use at your own risk.
@@ -644,3 +672,14 @@ This guide is provided as-is without warranty. Use at your own risk.
 ## Contributing
 
 Pull requests welcome! Please test on actual hardware before submitting.
+
+---
+
+## Support
+
+If this guide helped you, consider:
+- Starring this repository
+- Sharing with others who have similar hardware
+- Contributing improvements or translations
+
+Contact: [t.me/lordlock](https://t.me/lordlock)
