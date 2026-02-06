@@ -643,8 +643,19 @@ opkg install wpad-basic-mbedtls      # WiFi WPA support
 |------|-------------|------|
 | [uboot_Compiled_working.bin](binaries/uboot_Compiled_working.bin) | Custom U-Boot for WiFi Repeater U14 (GPIO 17 reset) | 123 KB |
 | [wifi_calibration_art.bin](binaries/wifi_calibration_art.bin) | ART partition backup (WiFi calibration data) | 64 KB |
+| [original_firmware_full_backup.bin](binaries/original_firmware_full_backup.bin) | Full SPI flash dump (original factory firmware) | 8 MB |
 
-**Note**: The ART file is specific to one device. Your device has unique calibration data - always backup your own ART partition before flashing!
+**Note**: The ART and full backup files are specific to one device. Your device has unique calibration data - always backup your own before flashing!
+
+### Full Dump Contents
+
+The `original_firmware_full_backup.bin` contains:
+- Bootloader (Breed)
+- Original firmware (modified LEDE 17.01)
+- ART calibration data
+- All factory settings
+
+This can be used to fully restore the router to factory state using a CH341A programmer.
 
 ---
 
