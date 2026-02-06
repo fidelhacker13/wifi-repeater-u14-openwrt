@@ -1,0 +1,23 @@
+# Firmware binaries (too large for git)
+*.bin
+
+# Keep images in the images folder
+!images/*.jpg
+!images/*.png
+
+# Private keys (never commit!)
+*.key
+*private*
+
+# Backups
+*.bak
+*.backup
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
