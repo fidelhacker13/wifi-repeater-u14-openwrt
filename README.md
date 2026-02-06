@@ -50,15 +50,21 @@ A comprehensive guide for installing OpenWrt on the **WiFi Repeater U14** (gener
 | **Package** | WBGA-84 (84-pin Ball Grid Array) |
 | **Manufacturer** | Winbond Electronics |
 
-### Flash: SPI NOR Flash
+### Flash: Macronix MX25L6435E
 
 | Parameter | Value |
 |-----------|-------|
+| **Full Part Number** | MX25L6435E |
+| **Manufacturer** | Macronix International |
 | **Type** | SPI NOR Flash |
 | **Capacity** | 64 Mbit (8 MB) |
 | **Interface** | SPI (Serial Peripheral Interface) |
+| **Max Clock** | 104 MHz |
+| **Voltage** | 2.7V - 3.6V |
 | **Package** | SOP-8 (8-pin) |
-| **Voltage** | 3.3V |
+| **Erase Size** | 4KB (sector), 64KB (block) |
+| **Page Size** | 256 bytes |
+| **JEDEC ID** | 0xC22017 |
 
 ### Crystal Oscillator
 
